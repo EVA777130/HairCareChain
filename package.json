@@ -1,0 +1,18 @@
+{
+  "name": "haircarechain",
+  "version": "1.0.0",
+  "description": "HairCareChain project on Hedera",
+  "main": "createProduct.js",
+  "type": "module",
+  "scripts": {
+    "start": "node createProduct.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hashgraph/sdk": "^2.73.2",
+    "dotenv": "^16.6.1",
+    "qrcode": "^1.5.4"
+  }
+}

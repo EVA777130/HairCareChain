@@ -1,0 +1,84 @@
+// analytics.js (CommonJS)
+require("dotenv").config();
+const { Client, AccountId, PrivateKey, TopicMessageSubmitTransaction, TopicMessageQuery } = require("@hashgraph/sdk");
+
+// Load your Hedera testnet credentials
+const operatorId = AccountId.fromString(process.env.MY_ACCOUNT_ID);
+const operatorKey = PrivateKey.fromStringDer(process.env.MY_PRIVATE_KEY);
+const client = Client.forTestnet().setOperator(operatorId, operatorKey);
+
+// STEP 1: Log a product scan
+async function logScan(topicId, productId) {
+    try {
+        const message = JSON.stringify({
+            productId,
+            timestamp: new Date().toISOString(),
+            event: "scan"
+        });
+
+        const sendTx = await new TopicMessageSubmitTransaction({
+            topicId,
+            message
+        }).execute(client);
+
+        const receipt = await sendTx.getReceipt(client);
+        console.log(`📊 Scan logged for Product ${productId}:`, receipt.status.toString());
+    } catch (err) {
+        console.error("❌ Error logging scan:", err);
+    }
+}
+
+// STEP 2: Fetch analytics data and prepare chart JSON
+async function getChartData(topicId) {
+    console.log("📥 Fetching analytics data...");
+
+    const scanCounts = {}; // { productId: count }
+
+    return new Promise((resolve, reject) => {
+        try {
+            const subscription = new TopicMessageQuery()
+                .setTopicId(topicId)
+                .setStartTime(0)
+                .subscribe(client, (message) => {
+                    const data = JSON.parse(Buffer.from(message.contents, "utf8").toString());
+                    const { productId } = data;
+
+                    if (!scanCounts[productId]) scanCounts[productId] = 0;
+                    scanCounts[productId] += 1;
+
+                    console.log("🔎 Scan Event Processed:", data);
+                });
+
+            // Stop subscription after 3 seconds and return chart data
+            setTimeout(() => {
+                subscription.unsubscribe();
+                const chartData = Object.keys(scanCounts).map((product) => ({
+                    product,
+                    scans: scanCounts[product]
+                }));
+                console.log("📈 Chart-ready JSON:", JSON.stringify(chartData, null, 2));
+                resolve(chartData);
+            }, 3000);
+        } catch (err) {
+            reject(err);
+        }
+    });
+}
+
+// RUN SAMPLE
+async function main() {
+    // Replace with your actual Hedera Topic ID
+    const topicId = "0.0.123456";
+
+    // Log some dummy scans
+    await logScan(topicId, "HairCare-Batch-001");
+    await logScan(topicId, "HairCare-Batch-002");
+    await logScan(topicId, "HairCare-Batch-001");
+
+    // Fetch and display chart data
+    await getChartData(topicId);
+}
+
+main();
+
+

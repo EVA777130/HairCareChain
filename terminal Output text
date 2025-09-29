@@ -1,0 +1,47 @@
+Terminal analytical Output
+C:\Users\Evangel\Desktop\MY_ANALYTICS>node analytics.js
+[dotenv@17.2.2] injecting env (2) from .env -- tip: 📡 version env with Radar: https://dotenvx.com/radar
+📊 Scan logged for Product HairCare-Batch-001: SUCCESS
+📊 Scan logged for Product HairCare-Batch-002: SUCCESS
+📊 Scan logged for Product HairCare-Batch-001: SUCCESS
+📥 Fetching analytics data...
+🔎 Scan Event Processed: {
+  batch: 'BATCH-001',
+  name: 'HairCare Shine Oil',
+  manufactureDate: '2025-09-01',
+  expiryDate: '2027-09-01'
+}
+🔎 Scan Event Processed: {
+  productId: 'HairCare-Batch-001',
+  timestamp: '2025-09-27T21:35:13.633Z',
+  event: 'scan'
+}
+🔎 Scan Event Processed: {
+  productId: 'HairCare-Batch-002',
+  timestamp: '2025-09-27T21:35:16.924Z',
+  event: 'scan'
+}
+🔎 Scan Event Processed: {
+  productId: 'HairCare-Batch-001',
+  timestamp: '2025-09-27T21:35:18.842Z',
+  event: 'scan'
+}
+📈 Chart-ready JSON: [
+  {
+    "product": "undefined",
+    "scans": 1
+  },
+  {
+    "product": "HairCare-Batch-001",
+    "scans": 2
+  },
+  {
+    "product": "HairCare-Batch-002",
+    "scans": 1
+  }
+]
+
+ *  History restored 
+
+Microsoft Windows [Version 10.0.19045.6332]
+(c) Microsoft Corporation. All rights reserved.
