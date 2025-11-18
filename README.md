@@ -57,7 +57,7 @@ It ensures that every haircare product has a verifiable story, protecting consum
 ---
 
 ## 📖 Demo
-- Prototype: [Figma Link](https://www.figma.com/...)
+- Prototype: [Figma Link](https://www.figma.com/proto/tq7rOWSZ0JA9aXAXyofqiE/HairCareChain-Prototype?node-id=1-5&t=EFf2PKxhGbdLuHxC-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1)
 - GitHub Repo: [Repo Link](https://github.com/YOUR-USERNAME/HairCareChain)
 
 ---
